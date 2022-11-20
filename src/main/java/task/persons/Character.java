@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import static task.Main.*;
 
-public abstract class Character implements Tiredness,Attention,Shame,Interes,WorkWithWrapper{
+public abstract class Character implements Tiredness,Attention,Shame,Interes,WorkWithWrapper,Friend{
     private final String name;
     private int interest=3;//интерес
     private int tiredness=3;//усталость
@@ -21,6 +21,7 @@ public abstract class Character implements Tiredness,Attention,Shame,Interes,Wor
     ArrayList<Character> FriendList = new ArrayList<>(); //Cписок для хранения имен друзей
     //ArrayList<Work> WorkList = new ArrayList<>(); //Cписок для работы
     private Work[] workList;
+
     public void addFun(Fun x){//метод для добавления интерсов
         FunList.add(x);
     }
@@ -30,10 +31,11 @@ public abstract class Character implements Tiredness,Attention,Shame,Interes,Wor
             result.append(x.getName()).append(", ");
         return String.format(removeLastChars(""+result,2));
     }
-
+    @Override
     public void addFriend(Character x){//метод для добавления интерсов
         FriendList.add(x);
     }
+    @Override
     public String getFriendList(){ //Получение списка друзей
         var result = new StringBuilder();
         for(Character x : FriendList)
@@ -130,9 +132,9 @@ public abstract class Character implements Tiredness,Attention,Shame,Interes,Wor
     }
     @Override
     public String CheckAttention(){ //Степень внимания от значения переменной
-        if(getAttention()>=5) return " очень внимательно";
-        else if (getAttention()>=3) return " внимательно";
-        else return " не внимательно";
+        if(getAttention()>=5) return " очень внимательно ";
+        else if (getAttention()>=3) return " внимательно ";
+        else return " не внимательно ";
     }
     @Override
     public int getShame() {
@@ -154,7 +156,7 @@ public abstract class Character implements Tiredness,Attention,Shame,Interes,Wor
     }
     @Override
     public String checkInteres(){
-        return (this.getInteres() > 3) ? " захотел" : " не хотел";
+        return (this.getInteres() > 3) ? " захотел " : " не хотел ";
     }
 
 

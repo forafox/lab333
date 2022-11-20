@@ -13,11 +13,6 @@ public final class Znayka extends Character implements Tiredness,Shame,Attention
             }
             return INSTANCE;
         }
-//    public Znayka(){super("Знайка");}
-//    public Znayka(String name,int interes){
-//        super(name,interes);
-//    }
-
     public void setBookCount(int n){
         this.bookCount+=n;
     }
@@ -27,7 +22,7 @@ public final class Znayka extends Character implements Tiredness,Shame,Attention
 
     @Override
     public String checkShame(){//Проверка стыда. Если книг больше 5, то знайке стыдно
-        return (this.getBookCount() > 5) ? " стыдно" : " не стыдно";
+        return (this.getBookCount() > 5) ? " стыдно " : " не стыдно ";
     }
 
 

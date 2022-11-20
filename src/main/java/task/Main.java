@@ -18,8 +18,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Babes babes = new Babes();
+        //Babes babes = new Babes();
         Table table = new Table();
+        BabesArrayWrapper babesArrayWrapper = new BabesArrayWrapper();
         Bed bed = new Bed();
         Books Harry_Potter = Books.HARRY_POTTER;
         Books War_and_Piece = Books.WAR_AND_PIECE;
@@ -27,7 +28,7 @@ public class Main {
         Znayka.getInstance().addFun(new Watermelon());
         Solomka.getInstance().setWork(new Work[]{Work.FRUIT_GROWING,Work.VEGETABLES_GROWING});
 
-        Population population = new Population(Znayka.getInstance(), Solomka.getInstance(), babes);
+        Population population = new Population(Znayka.getInstance(), Solomka.getInstance(), babesArrayWrapper);
 
         System.out.println("Действующие лица: ");
         for (Character person : population) {
@@ -45,20 +46,20 @@ public class Main {
         System.out.println("Знайку,конечно,заинтересовали " + Znayka.getInstance().getFunNameList());
 
         System.out.println("Малышки рассказали ему про Соломку");
-        babes.introduce(babes,Znayka.getInstance());
-        babes.Tell(Znayka.getInstance());
+        babesArrayWrapper.introduce(babesArrayWrapper,Znayka.getInstance());
+        babesArrayWrapper.Tell(Znayka.getInstance());
         System.out.println("Знайка "+Znayka.getInstance().checkInteres()+" познакомиться с ней");
         System.out.println(Znayka.getInstance().toString());
-        System.out.println(babes.toString());
+        System.out.println(babesArrayWrapper.toString());
 
         System.out.println("Малышки разыскали Соломку");
-        babes.introduce(babes,Solomka.getInstance());
-        babes.SeekOut(Solomka.getInstance());
+        babesArrayWrapper.introduce(babesArrayWrapper,Solomka.getInstance());
+        babesArrayWrapper.SeekOut(Solomka.getInstance());
         System.out.println(Solomka.getInstance().toString());
-        System.out.println(babes.toString());
+        System.out.println(babesArrayWrapper.toString());
 
         System.out.println("и познакомили её со Знайкой");
-        babes.introduce(Znayka.getInstance(),Solomka.getInstance());
+        babesArrayWrapper.introduce(Znayka.getInstance(),Solomka.getInstance());
         System.out.println("Друзья знайки : "+Znayka.getInstance().getFriendList());
         System.out.println("Друзья соломки : "+Solomka.getInstance().getFriendList());
 
