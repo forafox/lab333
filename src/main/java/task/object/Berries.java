@@ -1,7 +1,7 @@
 package task.object;
 import task.persons.*;
 public abstract class Berries {
-    private final String name;
+    private String name;
 
     public Berries(String name){
         this.name = name;
@@ -9,5 +9,8 @@ public abstract class Berries {
 
     public String getName(){
         return this.name;
+    }
+    public void setName(String name){
+         this.name=name;
     }
 }

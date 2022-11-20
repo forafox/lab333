@@ -12,11 +12,12 @@ public abstract class Furniture {
         var result = new StringBuilder();
         for (var book: books) {
             result.append(book.getNameBook()).append(", ");
-            this.PlusBookCount(1);
+            this.plusBookCount(1);
+            //Znayka.plusBookCount(1);
         }
         return String.format("На и даже под объектом %s лежат книги: "+removeLastChars(""+result,2),this.name);
     }
-    private void PlusBookCount(int i) {
+    private void plusBookCount(int i) {
         bookCount=getBookCount()+i;
     }
     private void setBookCount(int count) {

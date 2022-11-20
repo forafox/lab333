@@ -2,11 +2,11 @@ package task.persons;
 import task.object.*;
 
 public interface Attention {
-    default void PlusAttention(int n){
+    default void plusAttention(int n){
         this.setAttention(this.getAttention() +n);
     }
 
-    default String CheckAttention(){//Проверка внимательности.
+    default String checkAttention(){//Проверка внимательности.
         return null;
     }
 

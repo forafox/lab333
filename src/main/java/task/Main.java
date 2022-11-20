@@ -18,9 +18,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //Babes babes = new Babes();
+        BabesArrayWrapper babesArrayWrapper=new BabesArrayWrapper();
+        Babes babeOne = new Babes("Кнопочка");
+        Babes babeTwo = new Babes("Синеглазка");
+        Babes babeThree = new Babes("Ромашка");
+        babesArrayWrapper.addBabes(babeTwo);
+        babesArrayWrapper.addBabes(babeThree);
+        babesArrayWrapper.addBabes(babeOne);
         Table table = new Table();
-        BabesArrayWrapper babesArrayWrapper = new BabesArrayWrapper();
         Bed bed = new Bed();
         Books Harry_Potter = Books.HARRY_POTTER;
         Books War_and_Piece = Books.WAR_AND_PIECE;
@@ -35,7 +40,7 @@ public class Main {
             System.out.println(person.getName()+" "+person.toString());
         }
         System.out.println("Знайка машет рукой");
-        Znayka.getInstance().Wake();
+        Znayka.getInstance().wake();
         System.out.println(Znayka.getInstance().toString());
 
         System.out.println("Ему" + Znayka.getInstance().checkShame() + "признаться, что ");
@@ -47,16 +52,17 @@ public class Main {
 
         System.out.println("Малышки рассказали ему про Соломку");
         babesArrayWrapper.introduce(babesArrayWrapper,Znayka.getInstance());
-        babesArrayWrapper.Tell(Znayka.getInstance());
+        babesArrayWrapper.tell(Znayka.getInstance());
         System.out.println("Знайка "+Znayka.getInstance().checkInteres()+" познакомиться с ней");
         System.out.println(Znayka.getInstance().toString());
         System.out.println(babesArrayWrapper.toString());
 
         System.out.println("Малышки разыскали Соломку");
         babesArrayWrapper.introduce(babesArrayWrapper,Solomka.getInstance());
-        babesArrayWrapper.SeekOut(Solomka.getInstance());
+        babesArrayWrapper.seekOut(Solomka.getInstance());
         System.out.println(Solomka.getInstance().toString());
         System.out.println(babesArrayWrapper.toString());
+
 
         System.out.println("и познакомили её со Знайкой");
         babesArrayWrapper.introduce(Znayka.getInstance(),Solomka.getInstance());
@@ -64,23 +70,23 @@ public class Main {
         System.out.println("Друзья соломки : "+Solomka.getInstance().getFriendList());
 
         System.out.println("Знайка стал её распрашивать"); //добавить незнание
-        Znayka.getInstance().Question(Solomka.getInstance());
+        Znayka.getInstance().question(Solomka.getInstance());
         System.out.println("обо всем, что его интересовало("+Znayka.getInstance().getFunNameList()+")");
         System.out.println(Solomka.getInstance().toString());
         System.out.println(Znayka.getInstance().toString());
 
         System.out.println("Соломка рассказала о своей работе : "+ Solomka.getInstance().getWorkList());
-        Solomka.getInstance().Tell(Znayka.getInstance());
+        Solomka.getInstance().tell(Znayka.getInstance());
         System.out.println(Znayka.getInstance().toString());
         System.out.println(Solomka.getInstance().toString());
 
 
-        System.out.println("Знайка"+Znayka.getInstance().CheckAttention()+"Слушал");
-        Znayka.getInstance().Listen();
+        System.out.println("Знайка"+Znayka.getInstance().checkAttention()+"Слушал");
+        Znayka.getInstance().listen();
         System.out.println(Znayka.getInstance().toString());
 
         System.out.println("И даже записывал");
-        Znayka.getInstance().Write();
+        Znayka.getInstance().write();
         System.out.println("в свою маленькую "+Books.NOTEBOOK.getNameBook());
         System.out.println(Znayka.getInstance().toString());
 

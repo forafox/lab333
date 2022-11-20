@@ -1,15 +1,15 @@
 package task.persons;
 import task.object.*;
 public class Solomka extends Character{
-    private static Solomka INSTANCE;
+    private static Solomka INSTANCETWO;
     private Solomka() {
-        super("Знайка");
+        super("Соломка");
     }
     public static Solomka getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Solomka();
+        if (INSTANCETWO == null) {
+            INSTANCETWO = new Solomka();
         }
-        return INSTANCE;
+        return INSTANCETWO;
     }
 
 }

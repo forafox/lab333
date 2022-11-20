@@ -7,15 +7,26 @@ import static task.Main.*;
 
 public abstract class Character implements Tiredness,Attention,Shame,Interes,WorkWithWrapper,Friend{
     private final String name;
-    private int interest=3;//интерес
-    private int tiredness=3;//усталость
-    private int attention=10;//Внимание
-    private int shame=3;//стыд
+    private int interest=0;//интерес
+
+    private int tiredness=0;//усталость
+    private int attention=0;//Внимание
+    private int shame=0;//стыд
 
     public Character(String name){
         this.name = name;
+        this.tiredness=3;
+        this.interest=3;
+        this.shame=3;
+        this.attention=10;
     }
-    public Character(String name,int interest){this.name=name;this.interest=interest;}
+    public Character(String name,int tiredness,int interest,int shame,int attention){
+        this.name=name;
+        this.tiredness=tiredness;
+        this.interest=interest;
+        this.shame=shame;
+        this.attention=attention;
+    }
 
     ArrayList<Fun> FunList = new ArrayList<>(); //Cписок для хранения интересов
     ArrayList<Character> FriendList = new ArrayList<>(); //Cписок для хранения имен друзей
@@ -29,7 +40,8 @@ public abstract class Character implements Tiredness,Attention,Shame,Interes,Wor
         var result = new StringBuilder();
         for(Fun x : FunList)
             result.append(x.getName()).append(", ");
-        return String.format(removeLastChars(""+result,2));
+        if((""+result).length()>2)return String.format(removeLastChars(""+result,2));
+        else return "Нет друзей";
     }
     @Override
     public void addFriend(Character x){//метод для добавления интерсов
@@ -40,7 +52,8 @@ public abstract class Character implements Tiredness,Attention,Shame,Interes,Wor
         var result = new StringBuilder();
         for(Character x : FriendList)
             result.append(x.getName()).append(", ");
-        return String.format(removeLastChars(""+result,2));
+        if((""+result).length()>2)return String.format(removeLastChars(""+result,2));
+        else return "Нет друзей";
     }
 
     public void setWork(Work[] workList){//метод для добавления интерсов
@@ -50,7 +63,9 @@ public abstract class Character implements Tiredness,Attention,Shame,Interes,Wor
         var result = new StringBuilder();
         for(var workElement : workList)
             result.append(workElement.getNameWork()).append(", ");
-        return String.format(removeLastChars(""+result,2));
+        if((""+result).length()>2)return String.format(removeLastChars(""+result,2));
+        else return "Нет друзей";
+
     }
 
     public String getName(){
@@ -69,38 +84,38 @@ public abstract class Character implements Tiredness,Attention,Shame,Interes,Wor
         return str.substring(0, str.length() - chars);
     }
 
-    public void Wake(){
+    public void wake(){
         plusTiredness(1);
     }
-    @Override
-    public void Tell(Character x){ //Рассказывает кому-то что-то, повышая заинтересованность
+
+    public void tell(Character x){ //Рассказывает кому-то что-то, повышая заинтересованность
         x.plusInteres(1);
         plusTiredness(1);
         x.plusTiredness(1);
-        x.PlusAttention(-1);
+        x.plusAttention(-1);
     }
-    public void Listen(){
+    public void listen(){
         //System.out.println("Слушал");
         plusTiredness(1);
-        PlusAttention(-1);
+        plusAttention(-1);
     }
-    public void Question(Character x){
+    public void question(Character x){
         //System.out.println("Распрашивать");
         x.plusTiredness(1);
         x.plusInteres(1);
         plusTiredness(1);
-        PlusAttention(-1);
-        x.PlusAttention(-1);
+        plusAttention(-1);
+        x.plusAttention(-1);
     }
-    public void Write(){
+    public void write(){
         //System.out.println("Записывал");
         plusTiredness(1);
-        PlusAttention(-1);
-        Books.NOTEBOOK.MinusClear_paper(1);
-        Books.NOTEBOOK.PlusScribbled_paper(1);
+        plusAttention(-1);
+        Books.NOTEBOOK.minusClear_paper(1);
+        Books.NOTEBOOK.plusScribbled_paper(1);
     }
     @Override
-    public void SeekOut(Character x){
+    public void seekOut(Character x){
         plusTiredness(1);
         x.plusInteres(1);
     }
@@ -131,7 +146,7 @@ public abstract class Character implements Tiredness,Attention,Shame,Interes,Wor
         this.attention=n;
     }
     @Override
-    public String CheckAttention(){ //Степень внимания от значения переменной
+    public String checkAttention(){ //Степень внимания от значения переменной
         if(getAttention()>=5) return " очень внимательно ";
         else if (getAttention()>=3) return " внимательно ";
         else return " не внимательно ";
@@ -146,15 +161,16 @@ public abstract class Character implements Tiredness,Attention,Shame,Interes,Wor
     }
 
 
-    @Override
+
+
     public int getInteres() {
         return interest;
     }
-    @Override
+
     public void setInteres(int n) {
         this.interest=n;
     }
-    @Override
+
     public String checkInteres(){
         return (this.getInteres() > 3) ? " захотел " : " не хотел ";
     }

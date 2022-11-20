@@ -20,10 +20,10 @@ public enum Books {
     public String getNameBook(){return this.name;}
     public int getClear_paper(){return this.clear_paper ;}
     public int getScribbled_paper(){return this.scribbled_paper ;}
-    public void MinusClear_paper(int n){
+    public void minusClear_paper(int n){
         System.out.println(String.format("Исписано %d чистых страниц",n));
         this.clear_paper = getClear_paper()-n ;}
-    public void PlusScribbled_paper(int n){
+    public void plusScribbled_paper(int n){
         System.out.println(String.format("Написано %d страниц",n));
         this.scribbled_paper =getScribbled_paper() +n ;}
 

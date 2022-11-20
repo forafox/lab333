@@ -5,93 +5,120 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BabesArrayWrapper extends Character implements WorkWithWrapper,Tiredness,Interes,Friend{
-    private int globalTiredness=0;
-    private final int BabesCount=3;
-    ArrayList<Character> FriendList = new ArrayList<>();
-    private int globalInteres=0;
     ArrayList<Babes> BabesList = new ArrayList<Babes>(); //Cписок для Малышек
     public BabesArrayWrapper(){
         super("Малышки");
-        Babes babeOne = new Babes("Кнопочка");
-        Babes babeTwo = new Babes("Синеглазка");
-        Babes babeThree = new Babes("Ромашка");
-        BabesList.add(babeOne);
-        BabesList.add(babeTwo);
-        BabesList.add(babeThree);
-        globalTiredness=babeOne.getTiredness()+babeTwo.getTiredness()+babeThree.getTiredness();
-        globalInteres=babeOne.getInteres()+babeTwo.getInteres()+babeThree.getInteres();
+    }
+
+    public void addBabes(Babes x){
+        BabesList.add(x);
     }
 
     @Override
-    public void Tell(Character x){ //Рассказывает кому-то что-то, повышая заинтересованность,уменьшая внимание
+    public void tell(Character x){ //Рассказывает кому-то что-то, повышая заинтересованность,уменьшая внимание
+        for (Babes babe : BabesList) {
+            plusTiredness(1);
+        }
         x.plusInteres(1);
-        plusTiredness(1*BabesCount);
         x.plusTiredness(1);
-        x.PlusAttention(-1);
+        x.plusAttention(-1);
     }
     @Override
-    public void SeekOut(Character x){
-        plusTiredness(1*BabesCount);
+    public void seekOut(Character x){
+        for (Babes babe : BabesList) {
+            plusTiredness(1);
+        }
         x.plusInteres(1);
     }
     @Override
-    public void introduce(Character a,Character b){
-        a.addFriend(b);
-        a.plusTiredness(1*BabesCount);
-        a.plusInteres(1*BabesCount);
-        b.plusInteres(1);
-        b.plusTiredness(1);
-        b.addFriend(a);
+    public void introduce(Character a,Character b) {
+        if (a.getClass() == (BabesList.get(0)).getClass()) {
+            for (Babes babe : BabesList) {
+                babe.addFriend(b);
+                babe.plusTiredness(1);
+                babe.plusInteres(1);
+            }
+            for (Babes babe : BabesList) {
+                b.addFriend(babe);
+            }
+            b.plusInteres(1);
+            b.plusTiredness(1);
+        } else if (b.getClass() == (BabesList.get(0)).getClass())
+        {
+            for (Babes babe : BabesList) {
+                babe.addFriend(a);
+                babe.plusTiredness(1);
+                babe.plusInteres(1);
+            }
+            for (Babes babe : BabesList) {
+                a.addFriend(babe);
+            }
+            a.plusInteres(1);
+            a.plusTiredness(1);
+        }
+        else{
+            a.addFriend(b);
+            a.plusTiredness(1);
+            a.plusInteres(1);
+
+            b.addFriend(a);
+            b.plusTiredness(1);
+            b.plusInteres(1);
+        }
     }
 
     @Override
-    public int getTiredness() {
-        return globalTiredness;
+    public String toString() {//Состояние героя (Усталость)
+        String str="Каждая из малышек имеет следующее состояние:\n";
+        for (Babes babe : BabesList) {
+            str+=String.format("Усталость: %d,Интерес: %d,Стыд: %d,Внимание: %d\n",babe.getTiredness(),babe.getInteres(),getShame(),getAttention());
+        }
+        return str;
     }
 
     @Override
     public void setTiredness(int n) {
-        globalTiredness=n;
+        for (Babes babe : BabesList) {
+            babe.setTiredness(n);
+        }
     }
 
     @Override
     public void plusTiredness(int n) {
-        globalTiredness=getTiredness()+n;
-    }
-
-    @Override
-    public int getInteres() {
-        return globalInteres;
+        for (Babes babe : BabesList) {
+             babe.setTiredness(babe.getTiredness() + n);
+        }
     }
 
     @Override
     public void setInteres(int n) {
-        globalInteres=n;
+        for (Babes babe : BabesList) {
+            babe.setInteres(n);
+        }
     }
 
     @Override
     public void plusInteres(int n) {
-        globalInteres=getInteres()+n;
+        for (Babes babe : BabesList) {
+            babe.setInteres(babe.getInteres() + n);
+        }
     }
 
     @Override
-    public String checkInteres() {
-        return  (this.getInteres() > 3) ? " захотели" : " не хотели";
-    }
-    @Override
     public void addFriend(Character x){//метод для добавления интерсов
-        FriendList.add(x);
+        for (Babes babe : BabesList) {
+            babe.FriendList.add(x);
+        }
     }
     @Override
     public String getFriendList(){ //Получение списка друзей
         var result = new StringBuilder();
         for(Character x : FriendList)
             result.append(x.getName()).append(", ");
-        return String.format(removeLastChars(""+result,2));
+        if((""+result).length()>2)return String.format(removeLastChars(""+result,2));
+        else return "Нет друзей";
     }
     public static String removeLastChars(String str, int chars) {
         return str.substring(0, str.length() - chars);
     }
-
-
 }

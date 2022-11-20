@@ -1,15 +1,18 @@
 package task.persons;
 import task.object.*;
 public interface Shame {
-    default void ShamePlus(int n){
-        this.setShame(this.getShame() +n);
+    default void plusShame(int n){
+        this.setShame(this.getShame()+n);
     }
 
-     default String checkShame(){
+    default String checkShame(){
          return "";
      }
 
-    int getShame();
+    default int getShame() {
+        return 0;
+    }
 
-    void setShame(int n);
+    default void setShame(int n) {
+    }
 }
