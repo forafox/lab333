@@ -9,16 +9,9 @@ public class Main {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-
     public static void main(String[] args) {
 
-        BabesArrayWrapper babesArrayWrapper=new BabesArrayWrapper();
+        BabesArrayWrapper babesArrayWrapper=new BabesArrayWrapper("Малышки");
         Babes babeOne = new Babes("Кнопочка");
         Babes babeTwo = new Babes("Синеглазка");
         Babes babeThree = new Babes("Ромашка");
@@ -33,7 +26,7 @@ public class Main {
         Znayka.getInstance().addFun(new Watermelon());
         Solomka.getInstance().setWork(new Work[]{Work.FRUIT_GROWING,Work.VEGETABLES_GROWING});
 
-        Population population = new Population(Znayka.getInstance(), Solomka.getInstance(), babesArrayWrapper);
+        Population population = new Population(Znayka.getInstance(), Solomka.getInstance(),babeOne,babeTwo,babeThree);
 
         System.out.println("Действующие лица: ");
         for (Character person : population) {
@@ -89,9 +82,5 @@ public class Main {
         Znayka.getInstance().write();
         System.out.println("в свою маленькую "+Books.NOTEBOOK.getNameBook());
         System.out.println(Znayka.getInstance().toString());
-
-//        System.out.println(Znayka.getInstance().equals(znayka1)+"Equals");
-//        System.out.println(znayka.hashCode());
-//        System.out.println(znayka1.hashCode());
 }
 }

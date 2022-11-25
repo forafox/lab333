@@ -1,6 +1,8 @@
 package task.object;
 import task.persons.*;
-public abstract class Furniture {
+import task.persons.Character;
+
+public abstract class Furniture implements Moveable {
     public static int bookCount=0;
     private Books[] books;
     private final String name;
@@ -15,7 +17,7 @@ public abstract class Furniture {
             this.plusBookCount(1);
             //Znayka.plusBookCount(1);
         }
-        return String.format("На и даже под объектом %s лежат книги: "+removeLastChars(""+result,2),this.name);
+        return String.format("На и даже под объектом %s лежат книги: "+result.substring(0,result.length() - 2),this.name);
     }
     private void plusBookCount(int i) {
         bookCount=getBookCount()+i;
@@ -30,7 +32,9 @@ public abstract class Furniture {
         this.books = books;
     } //Присваем список книг объекту
 
-    public static String removeLastChars(String str, int chars) {
-        return str.substring(0, str.length() - chars);
+    @Override
+    public void move(Character a, Place b){
+        b.addObjectOnPlace(this.name);
     }
+
 }

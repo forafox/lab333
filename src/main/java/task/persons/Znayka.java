@@ -1,6 +1,6 @@
 package task.persons;
-import task.object.*;
-public final class Znayka extends Character implements Tiredness,Shame,Attention {
+
+public final class Znayka extends Character {
 
     private static int bookCount=0;
         private static Znayka INSTANCEONE;
@@ -20,15 +20,12 @@ public final class Znayka extends Character implements Tiredness,Shame,Attention
         return bookCount;
     }
 
-    @Override
+
     public String checkShame(){//Проверка стыда. Если книг больше 5, то знайке стыдно
-        return (this.getBookCount() > 5) ? " стыдно " : " не стыдно ";
+        return (this.getShame() > 3) ? " стыдно " : " не стыдно ";
     }
 
     public static void PlusBookCount(int count){
             setBookCount(getBookCount()+count);
         }
-
-
-
 }
