@@ -13,6 +13,7 @@ public final class Znayka extends Character {
             }
             return INSTANCEONE;
         }
+
     public static void setBookCount(int n){
         bookCount+=n;
     }

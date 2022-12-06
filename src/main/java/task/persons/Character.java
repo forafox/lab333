@@ -1,4 +1,5 @@
 package task.persons;
+import task.city.City;
 import task.object.*;
 
 import java.util.ArrayList;
@@ -6,18 +7,36 @@ import java.util.ArrayList;
 import static task.Main.*;
 
 public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
+    private Brain myBrain =new Brain();//?
     private String name;
+    private String gender="";
+
+    private int joy=0;//радость
+    private int obscurity=0;//неизвестность
     private int interest=0;//интерес
     private int tiredness=0;//усталость
     private int attention=0;//Внимание
     private int shame=0;//стыд
-
+    private int respect=0;//респект
     public Character(String name){
         this.name = name;
+        this.gender="Male";
         this.tiredness=5;
         this.interest=5;
         this.shame=5;
         this.attention=7;
+        this.obscurity=10;
+        this.joy=0;
+    }
+    public Character(String name,String gender){
+        this.name = name;
+        this.gender=gender;
+        this.tiredness=5;
+        this.interest=5;
+        this.shame=5;
+        this.attention=7;
+        this.obscurity=10;
+        this.joy=0;
     }
     public Character(String name,int tiredness,int interest,int shame,int attention){
         this.name=name;
@@ -28,12 +47,14 @@ public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
     }
 
     ArrayList<Joyful> FunList = new ArrayList<>(); //Cписок для хранения интересов
-    ArrayList<Character> FriendList = new ArrayList<>(); //Cписок для хранения имен друзей
+    ArrayList<Character> friendList = new ArrayList<>(); //Cписок для хранения имен друзей
     //ArrayList<Work> WorkList = new ArrayList<>(); //Cписок для работы
     private Work[] workList;
 
-    public void addFun(Joyful x){//метод для добавления интерсов
-        FunList.add(x);
+    public void addFun(Joyful ... joyfulsList){//метод для добавления интерсов
+        for (Joyful joyful : joyfulsList) {
+            FunList.add(joyful);
+        }
     }
     public String getFunNameList(){ //Получение списка интересов
         var result = new StringBuilder();
@@ -44,12 +65,12 @@ public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
     }
 
     public void addFriend(Character x){//метод для добавления интерсов
-        FriendList.add(x);
+        friendList.add(x);
     }
 
     public String getFriendList(){ //Получение списка друзей
         var result = new StringBuilder();
-        for(Character x : FriendList)
+        for(Character x : friendList)
             result.append(x.getName()).append(", ");
         if((""+result).length()>2)return String.format(result.substring(0,result.length() - 2));
         else return "Нет друзей";
@@ -70,14 +91,14 @@ public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
         return this.name;
     }
 
-    @Override
-    public String toString() {//Состояние героя (Усталость)
-        return String.format(ANSI_RED+"Герой %s с уровнем усталости,интереса,cтыда,внимания: %s , %d, %d , %d"+ANSI_RESET, this.getName(), this.getTiredness(),this.getInteres(),getShame(),getAttention());
-    }
 //    @Override
 //    public String toString() {//Состояние героя (Усталость)
-//        return String.format("Герой %s с уровнем усталости,интереса,cтыда,внимания: %s , %d, %d , %d", this.getName(), this.getTiredness(),this.getInteres(),getShame(),getAttention());
+//        return String.format(ANSI_RED+"Герой %s с уровнем усталости,интереса,cтыда,внимания: %s , %d, %d , %d"+ANSI_RESET, this.getName(), this.getTiredness(),this.getInteres(),getShame(),getAttention());
 //    }
+    @Override
+    public String toString() {//Состояние героя (Усталость)
+        return String.format("Герой %s с уровнем усталости,интереса,cтыда,внимания: %s , %d, %d , %d", this.getName(), this.getTiredness(),this.getInteres(),getShame(),getAttention());
+    }
     public static String removeLastChars(String str, int chars) {
         return str.substring(0, str.length() - chars);
     }
@@ -123,6 +144,13 @@ public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
         x.changeInteres(1);
     }
     @Override
+    public void praise(){
+        changeRespect(1);
+    }
+    public void praise(Character x){
+        x.changeRespect(1);
+    }
+    @Override
     public void introduce(Character a,Character b){
         a.addFriend(b);
         a.changeTiredness(1);
@@ -131,8 +159,13 @@ public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
         b.changeTiredness(1);
         b.addFriend(a);
     }
+    @Override
+    public void sit(){
+        changeTiredness(1);
+}
 
-
+    public String getGender(){return this.gender;}
+    public void setGender(String gender){ this.gender=gender;}
     public int getTiredness() {
         return this.tiredness;
     }
@@ -144,6 +177,21 @@ public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
         this.tiredness =getTiredness()+n;
     }
 
+    public String checkTiredness(){
+        if(getTiredness()>=5) return " хватало терпения ";
+    else if (getTiredness()>=3) return " еле-еле хватало терпения ";
+    else return " не хватало терпения ";}
+
+
+    public int getObscurity(){return this.obscurity;}
+    public void setObscurity(int n){this.obscurity=n;}
+    public void changeObscurity(int n){this.obscurity=getObscurity()+n;}
+
+    public String checkObscurity(){
+        if(getAttention()>=5) return " Вовсе не обращали на него никакого внимания,будто его не существовало";
+        else if (getAttention()>=3) return " не обращали на него внимания, но знали, что он существовал ";
+        else return " Обращали внимание ";
+    }
 
     public int getAttention() {
         return attention;
@@ -158,6 +206,22 @@ public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
         else if (getAttention()>=3) return " внимательно ";
         else return " не внимательно ";
     }
+    public void look() {
+        changeTiredness(1);
+    }//Посмотреть что-либо
+    public int getJoy() {
+        return joy;
+    }
+    public void setJoy(int n) {
+        this.joy=n;
+    }
+
+    public String checkJoy(){
+        return this.joy>2 ? " с радостью " : " с досадой";
+    }
+    public void changeJoy(int n){
+        this. joy=getJoy()+n;
+    }
 
     public int getShame() {
         return shame;
@@ -168,6 +232,10 @@ public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
     public void changeShame(int n){
         this.shame=getShame()+n;
     }
+
+    public int getRespect(){return respect;}
+    public void setRespect(int n){this.respect=n;}
+    public void changeRespect(int n){this.respect=getRespect()+n;}
 
 
     public int getInteres() {
@@ -183,7 +251,7 @@ public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
     }
 
     public String checkInteres(){
-        return (this.getInteres() > 3) ? " захотел " : " не хотел ";
+        return (this.getInteres() > 3) ? " захотеть " : " не хотеть ";
     }
 
     @Override
@@ -196,6 +264,25 @@ public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
         b.addObjectOnPlace(this.name);
     }
 
+    public String inspect(Place ... placeList){
+        var result = new StringBuilder();
+        for(Place x : placeList)
+            result.append(x.getObjectOnPlace()).append(", ");
+        if((""+result).length()>2)return String.format(result.substring(0,result.length() - 2));
+        else return "На местах ничего нет";
+    }
+    public String inspect(City x){
+        return x.getSight();}
+
+    @Override
+    public void goWalk(){changeTiredness(1);}
+
+    @Override
+    public void rejoice(){};
+
+    public void rush(){
+        changeTiredness(1);
+    }
 
 
     @Override
@@ -213,5 +300,32 @@ public abstract class Character implements WorkWithWrapper,Moveable,Joyful {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + interest;
         return result;
+    }
+
+    public void decided(String idea){ //решил
+        myBrain.addIdea(idea);
+    }
+    public String getIdea(){
+        return myBrain.getIdea();
+    }
+
+    public void think(String idea){
+         myBrain.addIdea(idea);
+    }
+    public void clearIdeaList(){
+        myBrain.ideaList.clear();
+    }
+    private static class Brain{
+        ArrayList<String> ideaList = new ArrayList<>();
+        private void addIdea(String ... newIdeaList){
+            for(String idea : newIdeaList) ideaList.add(idea);
+        }
+        private String getIdea(){
+            var result = new StringBuilder();
+            for(String idea : ideaList)
+                result.append(idea).append(", ");
+            if((""+result).length()>2)return String.format(result.substring(0,result.length() - 2));
+            else return "У персонажа идей нет";
+        }
     }
 }

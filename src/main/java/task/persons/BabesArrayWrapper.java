@@ -1,19 +1,24 @@
 package task.persons;
 
+import task.buildings.HouseBabes;
 import task.object.Joyful;
+import task.buildings.*;
+import task.object.StreetCovet.FloorCovering;
 
 import java.util.ArrayList;
 
 public class BabesArrayWrapper implements WorkWithWrapper {
     private String name;
-    ArrayList<Character> FriendList = new ArrayList<>(); //Cписок для хранения интересов
+     //Cписок для хранения интересов
     ArrayList<Babes> BabesList = new ArrayList<Babes>(); //Cписок для Малышек
     public BabesArrayWrapper(String name){
         this.name=name;
     }
 
-    public void addBabes(Babes x){
-        BabesList.add(x);
+    public void addBabes(Babes ... babesListSmall){
+        for (Babes babe : babesListSmall) {
+            BabesList.add(babe);
+        }
     }
 
     public String getName(){
@@ -126,21 +131,78 @@ public class BabesArrayWrapper implements WorkWithWrapper {
 
     public void addFriend(Character x){//метод для добавления интерсов
         for (Babes babe : BabesList) {
-            babe.FriendList.add(x);
+            babe.friendList.add(x);
         }
     }
 
-    public String getFriendList(){ //Получение списка друзей
-        var result = new StringBuilder();
-        for(Character x : FriendList)
-            result.append(x.getName()).append(", ");
-        if((""+result).length()>2)return String.format(result.substring(0,result.length() - 2));
-        else return "Нет друзей";
+//    public String getFriendList(){ //Получение списка друзей
+//        var result = new StringBuilder();
+//        for(Character x : friendList)
+//            result.append(x.getName()).append(", ");
+//        if((""+result).length()>2)return String.format(result.substring(0,result.length() - 2));
+//        else return "Нет друзей";
+//    }
+
+    public void coverUP(Place place, FloorCovering covering){
+        place.addObjectOnPlace(covering.getName());
     }
+
+    @Override
+    public void praise(){
+        for (Babes babe : BabesList) {
+            babe.changeRespect(1);
+        }
+    }
+
+    @Override
+    public void goWalk(){
+        for(Babes babe : BabesList){
+            babe.changeTiredness(1);
+        }
+    }
+
+    public void payAttention(){
+        for(Babes babe : BabesList){
+            babe.changeTiredness(1);
+        }
+    }
+
+    public String getNameMale(){
+        var result = new StringBuilder();
+        for(Babes babe : BabesList)
+            if (babe.getGender()=="Male") result.append(babe.getName()).append(", ");
+        if((""+result).length()>2) return String.format(result.substring(0,result.length() - 2));
+        else return " ";
+    }
+
+    public String getNameFemale(){
+        var result = new StringBuilder();
+        for(Babes babe : BabesList)
+            if (babe.getGender()=="Female") result.append(babe.getName()).append(", ");
+        if((""+result).length()>2) return String.format(result.substring(0,result.length() - 2));
+        else return " ";
+    }
+    public void let(){
+        for(Babes babe : BabesList){
+            babe.changeTiredness(1);
+        }
+    }
+
+    public void rejoice(){
+        for(Babes babe : BabesList){
+            babe.changeTiredness(1);
+        }
+    }
+
+    public void InviteToBabesHouse(Character person,HouseBabes house){
+            person.changeTiredness(1);
+            house.addPersonForInvited(person);
+    }
+
+
     @Override
     public void listen() {
     }
-
     @Override
     public void question(Character x) {
     }
@@ -150,6 +212,10 @@ public class BabesArrayWrapper implements WorkWithWrapper {
     }
     @Override
     public void wake() {
+    }
+    @Override
+    public void sit(){
+
     }
 
     }

@@ -1,5 +1,4 @@
 package task.object;
-import task.persons.*;
 
 public enum Books {
 

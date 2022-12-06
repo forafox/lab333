@@ -16,4 +16,9 @@ public interface WorkWithWrapper {
 
     void question(Character x);
 
+    void sit();
+    void praise();
+    void goWalk();
+    void rejoice();
+
 }

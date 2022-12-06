@@ -6,6 +6,9 @@ public abstract class Furniture implements Moveable {
     public static int bookCount=0;
     private Books[] books;
     private final String name;
+    public Furniture(){
+        name="Объект мебели";
+    }
     public Furniture(String name){
         this.name = name;
     }
@@ -31,6 +34,10 @@ public abstract class Furniture implements Moveable {
     public void setBooks(Books[] books) {
         this.books = books;
     } //Присваем список книг объекту
+
+    public String getName(){
+        return this.name;
+    }
 
     @Override
     public void move(Character a, Place b){
